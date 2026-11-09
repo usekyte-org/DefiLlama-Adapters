@@ -1,4 +1,5 @@
 const ADDRESSES = require('../helper/coreAssets.json')
+const { sumTokens2 } = require('../helper/unwrapLPs')
 
 // Kyte: fully collateralised call and put options on Robinhood Chain. Every option is backed 1:1 at creation:
 // a covered call locks the underlying token in CallMarket, a cash-secured put locks the full strike in WETH in
@@ -29,7 +30,8 @@ async function tvl(api) {
 }
 
 async function staking(api) {
-  return api.sumTokens({ owner: STAKING_POOL, tokens: [KYTE] })
+  // sumTokens2 (not api.sumTokens) so the KYTE -> coingecko mapping in helper/tokenMapping.js is applied
+  return sumTokens2({ api, owner: STAKING_POOL, tokens: [KYTE] })
 }
 
 module.exports = {

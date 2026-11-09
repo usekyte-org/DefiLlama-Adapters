@@ -42,6 +42,11 @@ const ibcMappings = {
 }
 
 const fixBalancesTokens = {
+  // Robinhood Chain: $KYTE is priced on CoinGecko (id kyte) but the coins service has no price for the token
+  // address on this chain yet, so staked KYTE in the Kyte staking pool otherwise reads 0.
+  robinhood: {
+    '0x072d88c2f31f568c0f4b8f613692eb489541ed45': { coingeckoId: 'kyte', decimals: 18 },
+  },
   // OmniCoin L1 (chain 88008): USDC arrives as an ICTT ERC20TokenRemote minted
   // 1:1 against collateral on Avalanche; the coins service has no price for the
   // bridged address on this chain.
